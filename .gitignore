@@ -4,3 +4,18 @@
 *.jar
 *.war
 *.ear
+
+# eclipse
+.classpath
+.project
+.settings
+target
+
+# SQLite local database files.
+*.db
+*.exe
+
+# intelij files
+*.iml
+/.idea
+/.idea/*
