@@ -1,15 +1,20 @@
 package com.morcinek.server.webservice.resources;
 
 
+import com.google.inject.Singleton;
+import com.morcinek.server.database.AuthorManager;
 import com.morcinek.server.model.Author;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,16 +27,13 @@ import java.util.List;
 @Consumes({MediaType.APPLICATION_JSON})
 public class ApplicationResource {
 
-    private List<Author> authors = new ArrayList<Author>();
-
-    public ApplicationResource() {
-        authors.add(new Author("Tomasz", "Morcinek", "tomasz.morcinek@gmail.com", "tmorcinek.wordpress.com"));
-    }
+    @Inject
+    private AuthorManager authorManager;
 
     @GET
     @Path("/authors")
     public Response getAuthors() {
-        return Response.status(Response.Status.OK).entity(authors).build();
+        return Response.status(Response.Status.OK).entity(authorManager.getAllAuthors()).build();
     }
 
     @GET
